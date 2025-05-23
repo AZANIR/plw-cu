@@ -4,14 +4,18 @@ module.exports = {
         formatOptions: {
             snippetInterface: "async-await"
         },
-        paths: ['src/test/features/**/*.feature'],
+        paths: [
+            "src/test/features/"
+        ],
         publishQuiet: true,
         dryRun: false,
         require: [
             "src/test/steps/*.ts",
             "src/hooks/hooks.ts"
         ],
-        requireModule: ["ts-node/register", "tsconfig-paths/register"],
+        requireModule: [
+            "ts-node/register"
+        ],
         format: [
             "progress-bar",
             "html:test-results/cucumber-report.html",
@@ -31,7 +35,9 @@ module.exports = {
             "src/test/steps/*.ts",
             "src/hooks/hooks.ts"
         ],
-        requireModule: ["ts-node/register", "tsconfig-paths/register"],
+        requireModule: [
+            "ts-node/register"
+        ],
         format: [
             "progress-bar",
             "html:test-results/cucumber-report.html",
