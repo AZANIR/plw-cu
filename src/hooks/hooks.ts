@@ -1,20 +1,18 @@
 import { BeforeAll, AfterAll, Before, After, Status } from "@cucumber/cucumber";
 import { Browser, BrowserContext } from "@playwright/test";
 import { fixture } from "./pageFixture";
+import { invokeBrowser } from "../helper/browsers/browserManager";
+import { getEnv } from "../helper/env/env";
 import { createLogger } from "winston";
 import { options } from "../helper/util/logger";
 const fs = require("fs-extra");
 
-declare global {
-    var testomatioArtifacts: string[];
-}
-
 let browser: Browser;
 let context: BrowserContext;
 
-
-Before(async function ({ pickle }) {
-    global.testomatioArtifacts = [];
+BeforeAll(async function () {
+    getEnv();
+    browser = await invokeBrowser();
 });
 // It will trigger for not auth scenarios
 Before({ tags: "not @auth" }, async function ({ pickle }) {
@@ -78,14 +76,7 @@ After(async function ({ pickle, result }) {
         );
         const traceFileLink = `<a href="https://trace.playwright.dev/">Open ${path}</a>`
         await this.attach(`Trace file: ${traceFileLink}`, 'text/html');
-    }
-    
-    // Add artifacts to Testomatio
-    if (result?.status === Status.FAILED) {
-        const screenshotFileName = `./test-results/screenshots/${pickle.name}-failed.png`;
-        await fixture.page.screenshot({ path: screenshotFileName });
-        global.testomatioArtifacts.push(screenshotFileName);
-        global.testomatioArtifacts.push(videoPath);
+
     }
 
 });
@@ -100,5 +91,3 @@ function getStorageState(user: string): string | { cookies: { name: string; valu
     else if (user.endsWith("lead"))
         return "src/helper/auth/lead.json";
 }
-
-
