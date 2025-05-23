@@ -10,6 +10,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+          libasound2t64 \
+          libffi8 \
+          libx264-dev \
+          libnss3 \
+          libatk-bridge2.0-0 \
+          libgtk-3-0 \
+          libx11-xcb1 \
+          libxcb-dri3-0 \
+          libdrm2 \
+          libxcomposite1 \
+          libxdamage1 \
+          libxrandr2 \
+          libgbm1 \
+          libpango-1.0-0 \
+          libcairo2 \
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install dependencies
