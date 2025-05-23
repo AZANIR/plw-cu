@@ -43,7 +43,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install
       - name: Run Cucumber tests
-        run: cross-env ENV=prod FORCE_COLOR=0 npx cucumber-js --config=config/cucumber.js || true
+        run: npm run test
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}
