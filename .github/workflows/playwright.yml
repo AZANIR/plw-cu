@@ -41,9 +41,9 @@ jobs:
           restore-keys: |
             playwright-${{ runner.os }}-
       - name: Install Playwright Browsers
-        run: npx playwright install
-      - name: Run Cucumber tests with Testomat reporter
-        run: npm run test
+        run: npx playwright install --with-deps
+      - name: Run Cucumber tests
+        run: npm test
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}
