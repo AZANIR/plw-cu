@@ -1,0 +1,17 @@
+/node_modules/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-result/
+/test-results/
+cucumber-report.html
+assets
+features
+@rerun.txt
+index.html
+
+# Environment files containing secrets
+src/helper/env/.env.*
+!src/helper/env/.env.example
+.env
+!.env.example
