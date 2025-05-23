@@ -3,7 +3,6 @@ import { Browser, BrowserContext } from "@playwright/test";
 import { fixture } from "./pageFixture";
 import { createLogger } from "winston";
 import { options } from "../helper/util/logger";
-import { loadEnvironment } from "../helper/env/envLoader";
 const fs = require("fs-extra");
 
 declare global {
