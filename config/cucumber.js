@@ -5,7 +5,7 @@ module.exports = {
             snippetInterface: "async-await"
         },
         paths: [
-            "./src/test/features/"
+            "src/test/features/"
         ],
         publishQuiet: true,
         dryRun: false,
@@ -21,7 +21,7 @@ module.exports = {
             "html:test-results/cucumber-report.html",
             "json:test-results/cucumber-report.json",
             "rerun:@rerun.txt",
-            "@testomatio/reporter/lib/adapter/cucumber.js"
+            "./node_modules/@testomatio/reporter/lib/adapter/cucumber.js"
         ],
         parallel: 1,
     },
@@ -43,7 +43,7 @@ module.exports = {
             "html:test-results/cucumber-report.html",
             "json:test-results/cucumber-report.json",
             "rerun:@rerun.txt",
-            "@testomatio/reporter/lib/adapter/cucumber.js"
+            "./node_modules/@testomatio/reporter/lib/adapter/cucumber.js"
         ],
         parallel: 2
     },
