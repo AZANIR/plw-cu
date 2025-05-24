@@ -33,12 +33,12 @@ jobs:
         TESTOMATIO_RUN: ${{ github.event.inputs.run }}
       run: npm run test:report
 
-    - name: Upload test results artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: |
-          test-results/
-          screenshots/
-        retention-days: 7
+    # - name: Upload test results artifacts
+    #   if: always()
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: test-results
+    #     path: |
+    #       test-results/
+    #       screenshots/
+    #     retention-days: 7
