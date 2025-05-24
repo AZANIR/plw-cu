@@ -12,7 +12,9 @@ on:
             required: false
             default: ''
         run:
+            description: 'run ID for Testomat.io'
             required: false
+            default: ''
         
 
 jobs:
