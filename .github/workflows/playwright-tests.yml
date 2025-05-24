@@ -31,7 +31,7 @@ jobs:
         TESTOMATIO: ${{ secrets.TESTOMATIO }}
         TESTOMATIO_URL: ${{ secrets.TESTOMATIO_URL }}
         TESTOMATIO_RUN: ${{ github.event.inputs.run }}
-      run: npm run test:report
+      run: npm run test:report --grep "${{ github.event.inputs.grep }}
 
     # - name: Upload test results artifacts
     #   if: always()
