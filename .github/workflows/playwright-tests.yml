@@ -1,0 +1,44 @@
+name: Playwright Cucumber Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps chromium
+
+    - name: Run tests with Testomat.io reporting
+      env:
+        TESTOMATIO: ${{ secrets.TESTOMATIO }}
+        TESTOMATIO_URL: ${{ secrets.TESTOMATIO_URL }}
+        TESTOMATIO_RUN: ${{ github.event.inputs.run }}
+      run: npm run test:report
+
+    - name: Upload test results artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: |
+          test-results/
+          screenshots/
+        retention-days: 7

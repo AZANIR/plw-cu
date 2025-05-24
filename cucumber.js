@@ -1,50 +1,17 @@
 module.exports = {
     default: {
-        tags: process.env.npm_config_TAGS || "",
-        formatOptions: {
-            snippetInterface: "async-await"
-        },
-        paths: [
-            "src/test/features/"
-        ],
-        publishQuiet: true,
-        dryRun: false,
-        require: [
-            "src/test/steps/*.ts",
-            "src/hooks/hooks.ts"
-        ],
-        requireModule: [
-            "ts-node/register"
-        ],
+        timeout: 30000,
+    paths: ['features/**/*.feature'],
+    require: ['step_definitions/**/*.ts', 'support/**/*.ts'],
+    requireModule: ['ts-node/register'],
         format: [
-            "progress-bar",
-            "html:test-results/cucumber-report.html",
-            "json:test-results/cucumber-report.json",
-            "rerun:@rerun.txt",
-            "./node_modules/@testomatio/reporter/lib/adapter/cucumber.js"
-        ],
-        parallel: 1,
-    },
-    rerun: {
-        formatOptions: {
-            snippetInterface: "async-await"
-        },
-        publishQuiet: true,
-        dryRun: false,
-        require: [
-            "src/test/steps/*.ts",
-            "src/hooks/hooks.ts"
-        ],
-        requireModule: [
-            "ts-node/register"
-        ],
-        format: [
-            "progress-bar",
-            "html:test-results/cucumber-report.html",
-            "json:test-results/cucumber-report.json",
-            "rerun:@rerun.txt",
-            "./node_modules/@testomatio/reporter/lib/adapter/cucumber.js"
-        ],
-        parallel: 2
-    },
-}
+        'progress',
+      'summary',
+      'progress-bar',
+      './node_modules/@testomatio/reporter/lib/adapter/cucumber.js'   ],
+    formatOptions: {
+      snippetInterface: 'async-await'
+    }
+    // publishQuiet option removed as it's deprecated
+  }
+};

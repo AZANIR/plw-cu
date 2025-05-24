@@ -1,78 +1,73 @@
-# Playwright (TS binding) + Cucumber (BDD)
+# Playwright + Cucumber + Testomat.io Template
 
-Cucumber is a popular behavior-driven development (BDD) tool that allows developers and stakeholders to collaborate on defining and testing application requirements in a human-readable format. 
-TypeScript is a powerful superset of JavaScript that adds optional static typing, making it easier to catch errors before runtime. By combining these two tools, we can create more reliable and maintainable tests.
+This is a template project for running automated tests with Playwright and Cucumber with test reporting to Testomat.io.
 
-## Features
+## Prerequisites
 
-1. Awesome report with screenshots, videos & logs
-2. Execute tests on multiple environments 
-3. Parallel execution
-4. Rerun only failed features
-5. Retry failed tests on CI
-6. Github Actions integrated with downloadable report
-7. Page object model
+- Node.js (v14 or later)
+- npm (v6 or later)
 
-## Sample report
-![image](https://github.com/ortoniKC/Playwright_Cucumber_TS/assets/58769833/da2d9f5a-85e7-4695-8ce2-3378b692afc4)
+## Setup
 
+1. Clone this repository
+2. Install dependencies:
 
-## Project structure
+```bash
+npm install
+```
 
-- .github -> yml file to execute the tests in GitHub Actions
-- src -> Contains all the features & Typescript code
-- test-results -> Contains all the reports related file
+3. Install Playwright browsers:
 
-## Reports
+```bash
+npx playwright install --with-deps chromium
+```
 
-1. [Mutilple Cucumber Report](https://github.com/WasiqB/multiple-cucumber-html-reporter)
-2. Default Cucumber report
-3. [Logs](https://www.npmjs.com/package/winston)
-4. Screenshots of failure
-5. [Testomatio Reporter](https://testomatio.github.io/reporter/) - for sending test results to Testomatio
+## Running Tests
 
-## Testomatio Integration
+### Run tests locally
 
-This project includes integration with Testomatio for test case management and reporting. To enable it:
+```bash
+npm test
+```
 
-1. Copy the example environment file:
-   ```
-   cp src/helper/env/.env.example src/helper/env/.env.prod
-   ```
+### Run tests with Testomat.io reporting
 
-2. Add your Testomatio API key and URL in the environment file:
-   ```
-   TESTOMATIO_URL = https://your-testomatio-instance.com
-   TESTOMATIO = your_testomatio_api_key
-   ```
+```bash
+TESTOMATIO=YOUR_API_KEY npm run test:report
+```
 
-3. Alternatively, you can pass these values directly in the command line:
-   ```
-   cross-env TESTOMATIO_URL=https://your-instance.testomatio.io TESTOMATIO=your_api_key ENV=prod cucumber-js -f @testomatio/reporter/lib/adapter/cucumber.js --config=config/cucumber.js
-   ```
+Replace `YOUR_API_KEY` with your actual Testomat.io API key.
 
-> **Security Note**: Never commit your Testomatio API key to version control. The environment files (except .env.example) are already added to .gitignore to prevent accidental commits.
+## Project Structure
 
-## Project structure
+- `features/`: Contains Cucumber feature files
+- `step_definitions/`: Contains step definitions for the features
+- `support/`: Contains support files like World definition and hooks
+- `.github/workflows/`: Contains GitHub Actions workflow for CI/CD
 
-- .github -> yml file to execute the tests in GitHub Actions
-- src -> Contains all the features & Typescript code
-- test-results -> Contains all the reports related file
+## Testomat.io Integration
 
-### Folder structure
-0. `src\pages` -> All the page (UI screen)
-1. `src\test\features` -> write your features here
-2. `src\test\steps` -> Your step definitions goes here
-3. `src\hooks\hooks.ts` -> Browser setup and teardown logic
-4. `src\hooks\pageFixture.ts` -> Simple way to share the page objects to steps
-5. `src\helper\env` -> Multiple environments are handled
-6. `src\helper\types` -> To get environment code suggestions
-7. `src\helper\report` -> To generate the report
-8. `config/cucumber.js` -> One file to do all the magic
-9. `package.json` -> Contains all the dependencies
-10. `src\helper\auth` -> Storage state (Auth file)
-11. `src\helper\util` -> Read test data from json & logger
+To integrate with Testomat.io:
 
-## Tutorials
-1. Learn Playwright - [Playwright - TS](https://youtube.com/playlist?list=PL699Xf-_ilW7EyC6lMuU4jelKemmS6KgD)
-2. BDD in detail - [TS binding](https://youtube.com/playlist?list=PL699Xf-_ilW6KgK-S1l9ynOnBGiZl2Bsk)
+1. Sign up for an account at [Testomat.io](https://testomat.io/)
+2. Get your API key from the dashboard
+3. Set your API key in the GitHub repository secrets as `TESTOMATIO_API_KEY`
+4. Set your project ID in the GitHub repository secrets as `TESTOMATIO_PROJECT_ID`
+
+## Adding New Tests
+
+1. Create a new feature file in the `features/` directory
+2. Add the corresponding step definitions in `step_definitions/`
+3. Add the Testomat.io issue ID in your feature file as a tag (e.g., `@DEMO-1`)
+
+Example:
+
+```gherkin
+Feature: New Feature
+
+  @PROJECT-123
+  Scenario: New scenario
+    Given I navigate to "https://example.com"
+    When I click on the button
+    Then I should see a success message
+```
